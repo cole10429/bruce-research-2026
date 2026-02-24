@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Great Institutional Divorce — Bruce Joseph Research</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  /* ========== RESET & BASE ========== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --surface2: #1a1a1a;
+    --border: #222222;
+    --text: #e8e8e8;
+    --muted: #888888;
+    --crimson: #dc2626;
+    --crimson-dark: #991b1b;
+    --crimson-glow: rgba(220,38,38,0.15);
+    --ice: #38bdf8;
+    --ice-dark: #0284c7;
+    --ice-glow: rgba(56,189,248,0.1);
+    --gold: #f59e0b;
+    --green: #22c55e;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ========== BLOOD LINE ========== */
+  #blood-line {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 0%;
+    background: linear-gradient(180deg, #dc2626, #991b1b);
+    z-index: 1000;
+    transition: height 0.05s linear;
+    box-shadow: 0 0 8px rgba(220,38,38,0.6);
+  }
+
+  /* ========== NAV ========== */
+  nav {
+    position: fixed;
+    top: 0; right: 0;
+    z-index: 999;
+    padding: 1rem 1.5rem;
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+  }
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--crimson); }
+
+  /* ========== SECTIONS ========== */
+  section {
+    min-height: 100vh;
+    padding: 6rem 2rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  section.full-bleed {
+    max-width: 100%;
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+
+  /* ========== SCROLL ANIMATIONS ========== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+  .reveal-delay-5 { transition-delay: 0.5s; }
+
+  /* ========== TYPOGRAPHY ========== */
+  h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 8vw, 6rem); font-weight: 900; line-height: 1.05; }
+  h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 700; line-height: 1.2; }
+  h3 { font-size: clamp(1.1rem, 2.5vw, 1.5rem); font-weight: 600; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+  .section-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--crimson);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 2px;
+    background: var(--crimson);
+  }
+
+  /* ========== HERO ========== */
+  #hero {
+    min-height: 100vh;
+    max-width: 100%;
+    padding: 0 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(ellipse at 70% 50%, rgba(220,38,38,0.04) 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 80%, rgba(56,189,248,0.03) 0%, transparent 50%),
+                var(--bg);
+  }
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+  }
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--crimson);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .hero-eyebrow::after {
+    content: '';
+    display: inline-block;
+    width: 60px;
+    height: 1px;
+    background: var(--crimson);
+  }
+  .hero-title {
+    margin-bottom: 2rem;
+  }
+  .hero-title .accent { color: var(--crimson); }
+  .hero-thesis {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--muted);
+    max-width: 680px;
+    line-height: 1.7;
+    border-left: 2px solid var(--crimson);
+    padding-left: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .hero-thesis strong { color: var(--text); }
+  .hero-scroll-hint {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .scroll-arrow {
+    width: 24px;
+    height: 24px;
+    border-right: 2px solid var(--muted);
+    border-bottom: 2px solid var(--muted);
+    transform: rotate(45deg);
+    animation: bounce 2s infinite;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: rotate(45deg) translateY(0); }
+    50% { transform: rotate(45deg) translateY(4px); }
+  }
+
+  /* ========== THE FILTER SECTION ========== */
+  #filter {
+    background: linear-gradient(180deg, var(--bg), var(--surface));
+    max-width: 100%;
+    padding: 6rem 3rem;
+  }
+  .filter-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .filter-visual {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+  .blood-pipe {
+    width: 60px;
+    height: 100px;
+    background: linear-gradient(180deg, #8b1a1a, #dc2626);
+    border-radius: 4px;
+    position: relative;
+    animation: bloodFlow 3s ease-in-out infinite;
+  }
+  @keyframes bloodFlow {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+  }
+  .filter-box {
+    width: 180px;
+    height: 120px;
+    background: linear-gradient(135deg, var(--surface2), #1e293b);
+    border: 2px solid var(--ice);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 30px var(--ice-glow), inset 0 0 20px rgba(56,189,248,0.05);
+    position: relative;
+    overflow: hidden;
+  }
+  .filter-box::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(transparent, rgba(56,189,248,0.1), transparent);
+    animation: spin 8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .filter-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--ice);
+    text-align: center;
+    z-index: 1;
+    line-height: 1.4;
+  }
+  .clean-pipe {
+    width: 60px;
+    height: 100px;
+    background: linear-gradient(180deg, var(--ice-dark), var(--ice));
+    border-radius: 4px;
+    opacity: 0.6;
+  }
+  .waste-pipe {
+    width: 40px;
+    height: 60px;
+    background: linear-gradient(90deg, #3a1a05, #7c2d12);
+    border-radius: 4px;
+    position: absolute;
+    right: -60px;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+  }
+  .pipe-label {
+    font-size: 0.65rem;
+    font-family: 'JetBrains Mono', monospace;
+    margin-top: 4px;
+    text-align: center;
+  }
+
+  /* ========== STAT CARDS ========== */
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .stat-card:hover { border-color: var(--crimson); transform: translateY(-2px); }
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+  }
+  .stat-card.danger::before { background: var(--crimson); }
+  .stat-card.info::before { background: var(--ice); }
+  .stat-card.warning::before { background: var(--gold); }
+  .stat-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .stat-number.crimson { color: var(--crimson); }
+  .stat-number.ice { color: var(--ice); }
+  .stat-number.gold { color: var(--gold); }
+  .stat-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+  .stat-source { font-size: 0.7rem; color: var(--muted); margin-top: 1rem; opacity: 0.6; }
+
+  /* ========== GRID LAYOUTS ========== */
+  .stats-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+  .stats-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  /* ========== SPLIT SCREEN ========== */
+  .split-screen {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 2rem 0;
+  }
+  .split-left {
+    background: var(--surface);
+    padding: 2.5rem;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+  .split-right {
+    background: var(--surface2);
+    padding: 2.5rem;
+    position: relative;
+  }
+  .split-header {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .split-header.official { color: var(--muted); }
+  .split-header.reality { color: var(--crimson); }
+  .split-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  .official .split-dot { background: var(--muted); }
+  .reality .split-dot { background: var(--crimson); box-shadow: 0 0 6px var(--crimson); }
+  .split-stat { font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 700; margin-bottom: 0.5rem; }
+  .split-stat.ice { color: var(--ice); font-family: 'JetBrains Mono', monospace; }
+  .split-stat.crimson { color: var(--crimson); font-family: 'JetBrains Mono', monospace; }
+  .split-caption { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
+
+  /* ========== QUOTE ========== */
+  blockquote {
+    border-left: 3px solid var(--crimson);
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+    background: var(--crimson-glow);
+    border-radius: 0 8px 8px 0;
+    font-size: 1.1rem;
+    font-style: italic;
+    line-height: 1.7;
+  }
+  blockquote cite {
+    display: block;
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    font-style: normal;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  blockquote.ice-quote {
+    border-left-color: var(--ice);
+    background: var(--ice-glow);
+  }
+
+  /* ========== PERCEPTION GAP TABLE ========== */
+  .gap-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    font-size: 0.95rem;
+  }
+  .gap-table thead tr {
+    background: var(--surface2);
+  }
+  .gap-table th {
+    padding: 1rem 1.5rem;
+    text-align: left;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .gap-table th:first-child { color: var(--muted); }
+  .gap-table th:nth-child(2) { color: var(--ice); }
+  .gap-table th:nth-child(3) { color: var(--crimson); }
+  .gap-table td {
+    padding: 1.2rem 1.5rem;
+    border-top: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .gap-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .gap-table td:first-child { font-weight: 700; color: var(--text); font-size: 0.9rem; }
+  .gap-table td:nth-child(2) { color: var(--muted); }
+  .gap-table td:nth-child(3) { color: var(--text); }
+
+  /* ========== SOVEREIGN INDEX ========== */
+  .sovereign-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+  .sovereign-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .sovereign-header {
+    background: var(--surface2);
+    padding: 1rem 1.5rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+  }
+  .sovereign-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .sovereign-col {
+    padding: 1.5rem;
+  }
+  .sovereign-col:first-child {
+    border-right: 1px solid var(--border);
+  }
+  .sovereign-col-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    opacity: 0.6;
+  }
+  .official-col .sovereign-col-label { color: var(--muted); }
+  .real-col .sovereign-col-label { color: var(--crimson); }
+  .sovereign-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 0.4rem;
+  }
+  .official-col .sovereign-number { color: var(--muted); }
+  .real-col .sovereign-number { color: var(--crimson); }
+  .sovereign-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.4; }
+
+  /* ========== TIMELINE ========== */
+  #timeline-section {
+    max-width: 100%;
+    padding: 6rem 0;
+    overflow: hidden;
+  }
+  .timeline-header {
+    padding: 0 3rem;
+    margin-bottom: 3rem;
+  }
+  .timeline-scroll-container {
+    overflow-x: auto;
+    padding: 1rem 3rem 2rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--crimson) var(--surface);
+  }
+  .timeline-scroll-container::-webkit-scrollbar { height: 4px; }
+  .timeline-scroll-container::-webkit-scrollbar-track { background: var(--surface); }
+  .timeline-scroll-container::-webkit-scrollbar-thumb { background: var(--crimson); border-radius: 2px; }
+  .timeline-track {
+    display: flex;
+    gap: 0;
+    width: max-content;
+    position: relative;
+    padding: 80px 0 40px;
+  }
+  .timeline-line {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--border), var(--crimson-dark), var(--crimson), var(--crimson-dark), var(--border));
+  }
+  .timeline-event {
+    width: 280px;
+    flex-shrink: 0;
+    padding: 0 20px;
+    position: relative;
+  }
+  .timeline-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--crimson);
+    border: 2px solid var(--bg);
+    position: absolute;
+    top: -86px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 10px var(--crimson);
+    z-index: 2;
+  }
+  .timeline-dot.ice { background: var(--ice); box-shadow: 0 0 10px var(--ice); }
+  .timeline-dot.gold { background: var(--gold); box-shadow: 0 0 10px var(--gold); }
+  .timeline-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--crimson);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+  }
+  .timeline-date.ice { color: var(--ice); }
+  .timeline-date.gold { color: var(--gold); }
+  .timeline-event-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+  .timeline-event-desc {
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .timeline-tag {
+    display: inline-block;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-bottom: 0.5rem;
+  }
+  .tag-health { background: rgba(220,38,38,0.15); color: var(--crimson); border: 1px solid var(--crimson-dark); }
+  .tag-money { background: rgba(245,158,11,0.15); color: var(--gold); border: 1px solid var(--gold); }
+  .tag-treatment { background: rgba(56,189,248,0.15); color: var(--ice); border: 1px solid var(--ice-dark); }
+  .tag-system { background: rgba(136,136,136,0.15); color: var(--muted); border: 1px solid var(--border); }
+
+  /* ========== FOOTER ========== */
+  footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 4rem 3rem;
+    max-width: 100%;
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .footer-thesis {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 3rem;
+    max-width: 800px;
+  }
+  .footer-thesis .accent { color: var(--crimson); }
+  .sources-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--border);
+  }
+  .source-group h4 {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+  .source-group ul { list-style: none; }
+  .source-group ul li {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+  }
+  .source-group ul li a {
+    color: var(--ice);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    word-break: break-all;
+  }
+  .source-group ul li a:hover { opacity: 1; }
+  .footer-credit {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.75rem;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* ========== HIGHLIGHT / CALLOUT ========== */
+  .callout {
+    background: var(--crimson-glow);
+    border: 1px solid var(--crimson-dark);
+    border-radius: 8px;
+    padding: 1.5rem 2rem;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  .callout.ice-callout {
+    background: var(--ice-glow);
+    border-color: var(--ice-dark);
+  }
+  .callout-title {
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--crimson);
+    margin-bottom: 0.75rem;
+  }
+  .callout.ice-callout .callout-title { color: var(--ice); }
+
+  /* ========== PROGRESS BAR ========== */
+  .progress-bar-container {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    margin: 1rem 0;
+    overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 1s ease;
+  }
+  .progress-bar.crimson { background: var(--crimson); }
+  .progress-bar.ice { background: var(--ice); }
+  .progress-bar.gold { background: var(--gold); }
+
+  /* ========== MARKET BARS ========== */
+  .market-item {
+    margin-bottom: 1.5rem;
+  }
+  .market-item-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.4rem;
+    font-size: 0.85rem;
+  }
+  .market-item-label { color: var(--text); }
+  .market-item-value { color: var(--ice); font-family: 'JetBrains Mono', monospace; font-weight: 700; }
+
+  /* ========== FDA CONTRADICTION BOX ========== */
+  .contradiction-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+  .contra-card {
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid;
+    position: relative;
+  }
+  .contra-card.says {
+    background: rgba(136,136,136,0.05);
+    border-color: var(--border);
+  }
+  .contra-card.does {
+    background: var(--ice-glow);
+    border-color: var(--ice-dark);
+  }
+  .contra-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .contra-card.says .contra-label { color: var(--muted); }
+  .contra-card.does .contra-label { color: var(--ice); }
+  .contra-text { font-size: 0.95rem; line-height: 1.6; }
+  .vs-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--crimson);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ========== CRIME PERCEPTION TABLE ========== */
+  .perception-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    font-size: 0.9rem;
+  }
+  .perception-table th {
+    padding: 0.8rem 1rem;
+    text-align: left;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: var(--surface2);
+    border-bottom: 2px solid var(--border);
+  }
+  .perception-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  .perception-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .pct-bar {
+    height: 6px;
+    border-radius: 3px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 8px;
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 768px) {
+    section { padding: 4rem 1.25rem; }
+    section.full-bleed { padding-left: 1.25rem; padding-right: 1.25rem; }
+    #hero { padding: 2rem 1.25rem; }
+    .filter-inner { grid-template-columns: 1fr; }
+    .filter-visual { display: none; }
+    .stats-grid-3 { grid-template-columns: 1fr; }
+    .stats-grid-2 { grid-template-columns: 1fr; }
+    .split-screen { grid-template-columns: 1fr; }
+    .split-left { border-right: none; border-bottom: 1px solid var(--border); }
+    .sovereign-grid { grid-template-columns: 1fr; }
+    .contradiction-box { grid-template-columns: 1fr; }
+    .vs-divider { padding: 1rem 0; }
+    .sources-grid { grid-template-columns: 1fr; }
+    .footer-credit { flex-direction: column; gap: 0.5rem; }
+    nav { display: none; }
+  }
+
+  @media (max-width: 480px) {
+    h1 { font-size: 2rem; }
+    .stat-number { font-size: 2rem; }
+    .timeline-event { width: 240px; }
+  }
+
+  /* ========== GLOW EFFECTS ========== */
+  .glow-red { text-shadow: 0 0 20px rgba(220,38,38,0.5); }
+  .glow-ice { text-shadow: 0 0 20px rgba(56,189,248,0.5); }
+  .text-crimson { color: var(--crimson); }
+  .text-ice { color: var(--ice); }
+  .text-gold { color: var(--gold); }
+  .text-muted { color: var(--muted); }
+
+  /* ========== SECTION DIVIDERS ========== */
+  .section-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 0;
+  }
+  .section-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--border);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.1em;
+  }
+</style>
+</head>
+<body>
+
+<!-- Blood Line Progress Indicator -->
+<div id="blood-line"></div>
+
+<!-- Navigation -->
+<nav>
+  <a href="#health">Health</a>
+  <a href="#money">Money</a>
+  <a href="#treatment">Treatment</a>
+  <a href="#perception">Gap</a>
+  <a href="#index">Index</a>
+  <a href="#timeline-section">Timeline</a>
+</nav>
+
+<!-- ========== HERO ========== -->
+<div id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow reveal">Research Report — 2026</div>
+    <h1 class="hero-title reveal reveal-delay-1">
+      The Great<br>
+      <span class="accent">Institutional</span><br>
+      Divorce
+    </h1>
+    <p class="hero-thesis reveal reveal-delay-2">
+      <strong>"The institutions built to protect our health, safety, and wealth have become the primary obstacles to achieving them.</strong> In 2026, survival is no longer a public service — it is a private, sovereign DIY project."
+    </p>
+    <div class="hero-scroll-hint reveal reveal-delay-3">
+      <div class="scroll-arrow"></div>
+      Scroll to explore
+    </div>
+  </div>
+</div>
+
+<!-- ========== SECTION: THE FILTER ========== -->
+<div class="section-divider"></div>
+<div id="filter" class="full-bleed">
+  <div class="filter-inner">
+    <div class="filter-text">
+      <div class="section-number reveal">01 / 07</div>
+      <div class="section-label reveal reveal-delay-1">The Filter</div>
+      <h2 class="reveal reveal-delay-2">Filtering Truth From<br><span class="text-crimson">Institutional Noise</span></h2>
+      <p class="reveal reveal-delay-3" style="color: var(--muted); margin: 1.5rem 0; line-height: 1.8;">
+        In 2025, people started paying $2,500 per session to run their blood through an ozone machine — not because it was approved. But because it was <strong>working</strong>. The EBOO filter metaphor is bigger than medicine: the West has spent five years watching its blood run dark through institutions that insist it's clean.
+      </p>
+      <p class="reveal reveal-delay-4" style="color: var(--muted); line-height: 1.8;">
+        Three systems. Three failures. One pattern. When the FDA calls ozone "toxic" while professional athletes secretly use it. When StatsCan says crime is down while 62% of Canadians feel unsafe. When the government compensates <strong>0.31%</strong> of vaccine injury claims while 17 million Americans suffer long COVID — something is being filtered out. And it isn't the waste.
+      </p>
+      <div class="callout reveal reveal-delay-5">
+        <div class="callout-title">The Three Divorces</div>
+        Official medicine vs. lived health experience • Official statistics vs. perceived safety • Official GDP vs. real purchasing power
+      </div>
+    </div>
+    <div class="filter-visual reveal reveal-delay-2">
+      <div class="blood-pipe"></div>
+      <div class="pipe-label" style="color: var(--crimson); font-size: 0.65rem; font-family: monospace;">OFFICIAL NARRATIVE<br>/ RAW BLOOD</div>
+      <div style="position: relative; display: flex; align-items: center;">
+        <div class="filter-box">
+          <div class="filter-label">EBOO<br>FILTER<br>⟳ Processing</div>
+        </div>
+        <div style="position: absolute; right: -80px; display: flex; flex-direction: column; align-items: center;">
+          <div class="waste-pipe" style="position: relative; right: auto; top: auto; transform: none;"></div>
+          <div class="pipe-label" style="color: #7c2d12; font-size: 0.6rem; width: 70px; text-align: center; font-family: monospace;">SUPPRESSED DATA</div>
+        </div>
+      </div>
+      <div class="clean-pipe"></div>
+      <div class="pipe-label" style="color: var(--ice); font-size: 0.65rem; font-family: monospace;">GROUND TRUTH<br>/ FILTERED OUTPUT</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== SECTION: YOUR HEALTH ========== -->
+<div class="section-divider"></div>
+<section id="health">
+  <div class="section-number reveal">02 / 07</div>
+  <div class="section-label reveal reveal-delay-1">Cluster B — Your Health</div>
+  <h2 class="reveal reveal-delay-2">The Body They <span class="text-crimson">Won't Count</span></h2>
+  <p class="reveal reveal-delay-3" style="color: var(--muted); max-width: 700px; margin-bottom: 2rem; line-height: 1.8;">
+    Stanford Medicine confirmed 17 million US adults live with Long COVID. The government's compensation program paid out to 44 of 14,102 claimants. These numbers are not errors — they are policy.
+  </p>
+
+  <!-- Big Stats Row -->
+  <div class="stats-grid-3 reveal reveal-delay-3">
+    <div class="stat-card danger">
+      <div class="label">Long COVID — US Adults</div>
+      <div class="stat-number crimson" data-target="17000000" data-suffix="M" data-scale="1000000">0</div>
+      <div class="stat-desc">Americans currently suffering from Long COVID as of 2024. 2 million are out of the workforce.</div>
+      <div class="stat-source">Stanford Medicine, Sept 2025</div>
+    </div>
+    <div class="stat-card danger">
+      <div class="label">CICP Compensation Rate</div>
+      <div class="stat-number crimson" data-target="031" data-suffix="%" data-decimal="0.31">0</div>
+      <div class="stat-desc">Of 14,102 COVID vaccine injury claims filed, only 44 received any compensation.</div>
+      <div class="stat-source">HRSA CICP Data, Feb 1, 2026</div>
+    </div>
+    <div class="stat-card danger">
+      <div class="label">Spike Protein Persistence</div>
+      <div class="stat-number crimson" data-target="4" data-suffix=" yrs">0</div>
+      <div class="stat-desc">Spike protein persists in skull bone marrow and meninges for up to 4 years post-infection, driving chronic brain inflammation.</div>
+      <div class="stat-source">Cell Host & Microbe, Dec 2024</div>
+    </div>
+  </div>
+
+  <!-- Split: Official vs Reality -->
+  <div class="split-screen reveal reveal-delay-4">
+    <div class="split-left">
+      <div class="split-header official">
+        <div class="split-dot"></div>
+        Official Position
+      </div>
+      <div class="split-stat ice">6,556</div>
+      <p class="split-caption">COVID vaccine injury claims <strong>denied</strong> by CICP. No court review, no right of appeal, no attorney fee coverage. A single HHS administrator makes binding decisions.</p>
+      <br>
+      <div class="split-stat ice" style="font-size: 1.5rem;">0.31%</div>
+      <p class="split-caption">Of all CICP claims filed received any compensation. The traditional VICP program has paid out <strong>$5.2 billion</strong> since 1988 — COVID vaccines are excluded from it.</p>
+    </div>
+    <div class="split-right">
+      <div class="split-header reality">
+        <div class="split-dot"></div>
+        Ground Reality
+      </div>
+      <div class="split-stat crimson">17M</div>
+      <p class="split-caption">Americans with Long COVID. <strong>2 million</strong> out of the workforce. ME/CFS new cases are 15x higher post-pandemic. COVID survivors lose an average <strong>6 IQ points</strong>.</p>
+      <br>
+      <div class="split-stat crimson" style="font-size: 1.5rem;">700+ days</div>
+      <p class="split-caption">Yale University (Feb 2025): Some Post-Vaccination Syndrome patients had detectable spike protein more than 700 days after last vaccination — without active infection.</p>
+    </div>
+  </div>
+
+  <!-- Microclot Section -->
+  <h3 class="reveal" style="margin: 3rem 0 1rem;">The Blood Evidence: Microclots</h3>
+  <div class="stats-grid-2 reveal reveal-delay-1">
+    <div class="stat-card info">
+      <div class="label">AI Diagnostic Accuracy</div>
+      <div class="stat-number ice">91%</div>
+      <div class="stat-desc">An AI model trained on microclot + NETs data identified Long COVID blood samples with 91% accuracy — a potential clinical biomarker pathway.</div>
+      <div class="stat-source">Journal of Medical Virology, 2025 (Stellenbosch University)</div>
+    </div>
+    <div class="stat-card info">
+      <div class="label">Long COVID Trial Response</div>
+      <div class="stat-number ice">71%</div>
+      <div class="stat-desc">Response rate in 2024 RCT using ozone therapy for Long COVID (vs. 45% control, p=0.0325). Gains in pulmonary function, 6-min walk, immune markers.</div>
+      <div class="stat-source">Peer-reviewed RCT, 2024</div>
+    </div>
+  </div>
+
+  <blockquote class="reveal">
+    "No will on the part of responsible government bodies to go down that route."
+    <cite>— Dr. M. Asad Khan, Manchester University Hospitals, after undergoing 15 sessions HELP apheresis for Long COVID (Undark/GAVI, May 2024)</cite>
+  </blockquote>
+
+  <!-- Narrative Shift: Myocarditis -->
+  <h3 class="reveal" style="margin: 2rem 0 1rem;">Narrative Shifts: "Misinformation" Going Mainstream</h3>
+  <div class="stats-grid-2 reveal reveal-delay-1">
+    <div class="stat-card warning">
+      <div class="label" style="color: var(--gold);">April 17 – June 25, 2025</div>
+      <h3 style="color: var(--gold); margin-bottom: 0.75rem;">FDA Myocarditis Label Update</h3>
+      <div class="stat-desc">FDA sent mandatory Safety Labeling Change notifications to Pfizer and Moderna. New warning covers males 16–25 for both vaccines. <strong style="color: var(--text);">~38 cases per million doses</strong> in highest-risk group. 5-month MRIs still showing heart muscle injury signs in some patients.</div>
+      <div class="stat-source">FDA, June 25, 2025 — fda.gov/vaccines-blood-biologics</div>
+    </div>
+    <div class="stat-card warning">
+      <div class="label" style="color: var(--gold);">2021 vs. 2025</div>
+      <h3 style="color: var(--gold); margin-bottom: 0.75rem;">Spike Protein: From "Myth" to Published</h3>
+      <div class="stat-desc">In 2021, claims of spike protein persistence were labeled fringe. In 2024, Cell Host & Microbe published: spike in skull bone marrow for <strong style="color: var(--text);">up to 4 years</strong>. mRNA vaccines reduce burden by 50% — but don't eliminate it.</div>
+      <div class="stat-source">Cell Host & Microbe, Dec 2024 | Yale University, Feb 2025</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SECTION: YOUR MONEY ========== -->
+<div class="section-divider"></div>
+<section id="money">
+  <div class="section-number reveal">03 / 07</div>
+  <div class="section-label reveal reveal-delay-1">Cluster C — Your Money</div>
+  <h2 class="reveal reveal-delay-2">$1,000 From<br><span class="text-gold">Mississippi</span></h2>
+  <p class="reveal reveal-delay-3" style="color: var(--muted); max-width: 700px; margin-bottom: 2rem; line-height: 1.8;">
+    Canada's GDP per capita is approaching the level of the United States' poorest state. The gap between what StatsCan reports and what Canadians feel is the defining economic story of this decade.
+  </p>
+
+  <!-- Canada Economy Stats -->
+  <div class="stats-grid-3 reveal reveal-delay-3">
+    <div class="stat-card warning">
+      <div class="label">GDP Gap — Mississippi</div>
+      <div class="stat-number gold" data-target="1000" data-prefix="$" data-suffix="">0</div>
+      <div class="stat-desc">Canada's GDP per capita is only ~$1,000 USD above Mississippi's — the poorest US state. Already confirmed poorer than Alabama.</div>
+      <div class="stat-source">@Tablesalt13 analysis with 2025 IMF/BEA data</div>
+    </div>
+    <div class="stat-card warning">
+      <div class="label">Crime Perception Gap</div>
+      <div class="stat-number gold" data-target="62" data-suffix="%">0</div>
+      <div class="stat-desc">Of Canadians believe crime has risen in their community over the past 5 years. Only 5% say it has decreased. Double the 30% who felt that way in 2014.</div>
+      <div class="stat-source">Angus Reid, Jan 2026</div>
+    </div>
+    <div class="stat-card warning">
+      <div class="label">Feel Safe After Dark</div>
+      <div class="stat-number gold" data-target="17" data-suffix="%">0</div>
+      <div class="stat-desc">Of Canadians strongly agree they feel safe walking alone after dark in 2025. Down from 32% in 2015 and 23% in 2022.</div>
+      <div class="stat-source">Angus Reid longitudinal polling</div>
+    </div>
+  </div>
+
+  <!-- Influencer Quotes -->
+  <blockquote class="reveal">
+    "BREAKING EXCLUSIVE — We ALL know that Canada is poorer than Alabama but did you know... We are VERY CLOSE to being poorer than the poorest US state — Mississippi? I plugged in the latest 2025 numbers, and we're now only $1,000 USD away!"
+    <cite>— @Tablesalt13 (101K followers, 133M impressions/quarter), Feb 21-22, 2026</cite>
+  </blockquote>
+
+  <blockquote class="reveal">
+    "Name me one key metric that has improved in the last decade: Lower taxes? Affordable homes? Affordable Food? Better healthcare? Lower crime? Improved immigration? Not a single one. And people continue to vote for this because <strong>words, not actions, make people feel good.</strong>"
+    <cite>— @mario4thenorth (101,800+ followers), Feb 19, 2026 — 74,000 views, 3,700+ likes</cite>
+  </blockquote>
+
+  <!-- Crime Perception Table -->
+  <h3 class="reveal" style="margin: 2rem 0 1rem;">The Crime Perception Gap</h3>
+  <table class="perception-table reveal reveal-delay-1">
+    <thead>
+      <tr>
+        <th style="color: var(--muted);">Metric</th>
+        <th style="color: var(--ice);">Official StatsCan (2024)</th>
+        <th style="color: var(--crimson);">Public Perception</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="color: var(--text); font-weight: 700;">Crime Severity Index</td>
+        <td style="color: var(--muted);">77.9 — down 4% YoY</td>
+        <td style="color: var(--text);">62% believe crime has <em>risen</em> in their community</td>
+      </tr>
+      <tr>
+        <td style="color: var(--text); font-weight: 700;">Homicide Rate</td>
+        <td style="color: var(--muted);">1.91/100K — down 4%</td>
+        <td style="color: var(--text);">Manitoba +22%, Saskatchewan +7% — regional crisis</td>
+      </tr>
+      <tr>
+        <td style="color: var(--text); font-weight: 700;">Violent Crime (Decade)</td>
+        <td style="color: var(--muted);">CSI down from 1998 peak</td>
+        <td style="color: var(--text);">MacDonald-Laurier: "Decade-long rise, broad-based, sustained"</td>
+      </tr>
+      <tr>
+        <td style="color: var(--text); font-weight: 700;">Safety Walking at Night</td>
+        <td style="color: var(--muted);">No official target</td>
+        <td style="color: var(--text);">Only 17% feel safe — down from 32% in 2015</td>
+      </tr>
+      <tr>
+        <td style="color: var(--text); font-weight: 700;">Government CSI Target</td>
+        <td style="color: var(--muted);">Target: ≤70.1 by March 2025</td>
+        <td style="color: var(--crimson); font-weight: 700;">Actual: 77.89 — MISSED</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout reveal">
+    <div class="callout-title">Reading Between the Lines</div>
+    StatsCan says crime is down 4% — but <strong>reporting is down</strong>. When police don't come for a car theft, people stop calling. The 62% who feel unsafe represent a <strong>leading indicator</strong>. The official statistics are a lagging — and arguably managed — one.
+  </div>
+
+  <!-- Mario reach stats -->
+  <div class="stats-grid-2 reveal reveal-delay-2" style="margin-top: 2rem;">
+    <div class="stat-card info">
+      <div class="label">Mario Zelaya — Viral Post Aug 2025</div>
+      <div class="stat-number ice">2.5M</div>
+      <div class="stat-desc">Views on his post about Jeff Evely's $28,000 ticket for walking in a forest — symbolizing government overreach at its most absurd. 7,500 reposts, 38,000 likes.</div>
+    </div>
+    <div class="stat-card info">
+      <div class="label">Table Salt — Quarterly Reach</div>
+      <div class="stat-number ice">133M</div>
+      <div class="stat-desc">Impressions per quarter for @Tablesalt13. 86% Canadian audience. Monetizes via sponsored posts. The institutional alternative media now reaches more people than most newspapers.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SECTION: YOUR TREATMENT ========== -->
+<div class="section-divider"></div>
+<section id="treatment">
+  <div class="section-number reveal">04 / 07</div>
+  <div class="section-label reveal reveal-delay-1">Cluster A — Your Treatment</div>
+  <h2 class="reveal reveal-delay-2">The "Toxic Gas" the <br><span class="text-ice">Professionals Use</span></h2>
+  <p class="reveal reveal-delay-3" style="color: var(--muted); max-width: 700px; margin-bottom: 2rem; line-height: 1.8;">
+    The FDA classifies ozone as "toxic gas with no known useful medical application." In December 2025, Philadelphia Phillies star Bryce Harper posted himself undergoing EBOO therapy. His doctor confirmed he works with "a ton of high-profile professional athletes." Something doesn't add up.
+  </p>
+
+  <!-- FDA Contradiction -->
+  <h3 class="reveal" style="margin-bottom: 1rem;">The FDA Contradiction</h3>
+  <div class="contradiction-box reveal reveal-delay-1">
+    <div class="contra-card says">
+      <div class="contra-label">FDA 21 CFR 801.415 — What They Say</div>
+      <div class="contra-text">Ozone is "toxic" and "irritating" with <strong>"no known useful medical application."</strong> Clinics using ozone devices are technically distributing "adulterated and misbranded" equipment. The agency issued a Warning Letter to EBOO device manufacturer O3UV, LLC on July 7, 2025.</div>
+    </div>
+    <div class="vs-divider">VS</div>
+    <div class="contra-card does">
+      <div class="contra-label" style="color: var(--ice);">What They Allow</div>
+      <div class="contra-text">Active clinical trials for ozone therapy continue under FDA oversight. 15 US states have enacted Health Freedom laws allowing its practice. Insurance-covered professional athletes use it. 60+ countries have regularized ozone therapy under the Madrid Declaration (ISCO3, 2020).</div>
+    </div>
+  </div>
+
+  <!-- Market Growth -->
+  <h3 class="reveal" style="margin: 2.5rem 0 1.5rem;">Market Growth — The Underground Becoming Mainstream</h3>
+  <div class="reveal reveal-delay-1">
+    <div class="market-item">
+      <div class="market-item-header">
+        <span class="market-item-label">EBOO Sessions Market (Research & Markets)</span>
+        <span class="market-item-value">$1.50B (2025) → 11.1% CAGR</span>
+      </div>
+      <div class="progress-bar-container">
+        <div class="progress-bar ice" data-width="75"></div>
+      </div>
+    </div>
+    <div class="market-item">
+      <div class="market-item-header">
+        <span class="market-item-label">EBOO Equipment Market (Market Research Future)</span>
+        <span class="market-item-value">$2.62B → $6.45B by 2035 (9.42% CAGR)</span>
+      </div>
+      <div class="progress-bar-container">
+        <div class="progress-bar ice" data-width="85"></div>
+      </div>
+    </div>
+    <div class="market-item">
+      <div class="market-item-header">
+        <span class="market-item-label">Ozone therapy search volume growth (Jan–Jul 2025)</span>
+        <span class="market-item-value">+66% in 6 months (141 → 234)</span>
+      </div>
+      <div class="progress-bar-container">
+        <div class="progress-bar ice" data-width="66"></div>
+      </div>
+    </div>
+    <div class="market-item">
+      <div class="market-item-header">
+        <span class="market-item-label">Countries with regularized ozone therapy</span>
+        <span class="market-item-value">60+ (Russia, UAE, Brazil, Spain, Cuba…)</span>
+      </div>
+      <div class="progress-bar-container">
+        <div class="progress-bar ice" data-width="60"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pricing Hierarchy -->
+  <h3 class="reveal" style="margin: 2.5rem 0 1.5rem;">The Ozone Hierarchy — Cost to Clean Your Blood</h3>
+  <div class="stats-grid-2 reveal reveal-delay-1">
+    <div class="stat-card info">
+      <div class="label">Entry Level — MAH</div>
+      <div class="stat-number ice" style="font-size: 2rem;">$200-250</div>
+      <div class="stat-desc">Per session. Processes ~250mL of blood. 1 equivalent pass.</div>
+    </div>
+    <div class="stat-card info">
+      <div class="label">Intermediate — 10-Pass</div>
+      <div class="stat-number ice" style="font-size: 2rem;">$750-900</div>
+      <div class="stat-desc">Per session. Processes ~2.5L of blood. 10 equivalent passes.</div>
+    </div>
+    <div class="stat-card danger">
+      <div class="label">EBOO (Standard)</div>
+      <div class="stat-number crimson" style="font-size: 2rem;">$900-1,500</div>
+      <div class="stat-desc">Per session. 2-3L. ~25 equivalent passes. The Bryce Harper tier.</div>
+    </div>
+    <div class="stat-card danger">
+      <div class="label">EBO2 (Next-Gen)</div>
+      <div class="stat-number crimson" style="font-size: 2rem;">$1,200-2,500</div>
+      <div class="stat-desc">Per session. Processes entire blood volume (5-7L). The celebrity/elite tier.</div>
+    </div>
+  </div>
+
+  <blockquote class="ice-quote reveal">
+    "Bryce Harper's blood ozone treatment goes viral."
+    <cite>— The Athletic / New York Times, December 13, 2025 · nytimes.com/athletic/6884480/2025/12/13/bryce-harper-blood-ozone-treatment-phillies/</cite>
+  </blockquote>
+
+  <div class="callout ice-callout reveal">
+    <div class="callout-title">The 1% vs. The 99%</div>
+    Bryce Harper (2x NL MVP, $330M contract) uses ozone. Average Canadians are told they are "poorer than Alabama" and that the treatment for what the government says isn't there costs $2,500 a session. The "toxic gas" has a class problem.
+  </div>
+</section>
+
+<!-- ========== SECTION: PERCEPTION GAP TABLE ========== -->
+<div class="section-divider"></div>
+<section id="perception">
+  <div class="section-number reveal">05 / 07</div>
+  <div class="section-label reveal reveal-delay-1">Cross-Cluster</div>
+  <h2 class="reveal reveal-delay-2">The <span class="text-crimson">Perception Gap</span></h2>
+  <p class="reveal reveal-delay-3" style="color: var(--muted); max-width: 700px; margin-bottom: 2rem; line-height: 1.8;">
+    Across every domain — health, safety, economy, medicine — a consistent pattern emerges. The institutional position and the ground reality inhabit parallel universes.
+  </p>
+
+  <table class="gap-table reveal reveal-delay-3">
+    <thead>
+      <tr>
+        <th>Domain</th>
+        <th>🏛️ Institutional Position</th>
+        <th>⚡ Ground-Level Reality</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Safety</td>
+        <td>"Crime Severity is down 4%." <br><small>StatsCan Daily, July 2025</small></td>
+        <td>"I don't walk alone at night anymore." <br><small>Only 17% feel safe after dark (Angus Reid 2025)</small></td>
+      </tr>
+      <tr>
+        <td>Health</td>
+        <td>"Vaccines are safe and effective." <br><small>Health Canada, ongoing</small></td>
+        <td>"My heart hasn't felt right for 2 years." <br><small>FDA issued mandatory myocarditis label update, June 2025</small></td>
+      </tr>
+      <tr>
+        <td>Economy</td>
+        <td>"Canada's GDP is stable." <br><small>StatsCan quarterly reports</small></td>
+        <td>"I am $1,000 away from being poorer than Mississippi." <br><small>@Tablesalt13, Feb 2026 — confirmed by 2025 IMF data</small></td>
+      </tr>
+      <tr>
+        <td>Ozone/EBOO</td>
+        <td>"Toxic gas, no medical use." <br><small>FDA 21 CFR 801.415</small></td>
+        <td>"It saved me from 3 years of bed-bound brain fog." <br><small>@libbsteele (documented Lyme/Long COVID recovery), 2025</small></td>
+      </tr>
+      <tr>
+        <td>Vaccine Injury</td>
+        <td>"Rare events, being monitored." <br><small>HRSA CICP; 0.31% compensated</small></td>
+        <td>17M Long COVID. Spike persists 4 years. 6,556 claims denied. <br><small>RECOVER Initiative; Cell Host & Microbe; HRSA data</small></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ========== SECTION: THE SOVEREIGN INDEX ========== -->
+<div class="section-divider"></div>
+<section id="index">
+  <div class="section-number reveal">06 / 07</div>
+  <div class="section-label reveal reveal-delay-1">The Sovereign Index</div>
+  <h2 class="reveal reveal-delay-2">Official Stat<br><span class="text-crimson">vs. Real Stat</span></h2>
+  <p class="reveal reveal-delay-3" style="color: var(--muted); max-width: 700px; margin-bottom: 2rem; line-height: 1.8;">
+    A dashboard. For each domain: what the institution reports, and what the ground truth looks like.
+  </p>
+
+  <div class="sovereign-grid reveal reveal-delay-3">
+    <!-- Health -->
+    <div class="sovereign-card">
+      <div class="sovereign-header">🩺 Domain: Health — Long COVID</div>
+      <div class="sovereign-body">
+        <div class="sovereign-col official-col">
+          <div class="sovereign-col-label">Official</div>
+          <div class="sovereign-number">0.31%</div>
+          <div class="sovereign-desc">Of CICP vaccine injury claims compensated (44 of 14,102 filed)</div>
+        </div>
+        <div class="sovereign-col real-col">
+          <div class="sovereign-col-label">Reality</div>
+          <div class="sovereign-number">17M</div>
+          <div class="sovereign-desc">US adults with Long COVID. 2M out of workforce. ME/CFS 15x higher.</div>
+        </div>
+      </div>
+    </div>
+    <!-- Safety -->
+    <div class="sovereign-card">
+      <div class="sovereign-header">🚨 Domain: Safety — Crime</div>
+      <div class="sovereign-body">
+        <div class="sovereign-col official-col">
+          <div class="sovereign-col-label">Official</div>
+          <div class="sovereign-number">-4%</div>
+          <div class="sovereign-desc">National Crime Severity Index 2024 (77.9). Government target: 70.1. Missed.</div>
+        </div>
+        <div class="sovereign-col real-col">
+          <div class="sovereign-col-label">Reality</div>
+          <div class="sovereign-number">62%</div>
+          <div class="sovereign-desc">Canadians believe crime has risen. Decade-long violent crime surge confirmed by Macdonald-Laurier.</div>
+        </div>
+      </div>
+    </div>
+    <!-- Economy -->
+    <div class="sovereign-card">
+      <div class="sovereign-header">💰 Domain: Economy — GDP per Capita</div>
+      <div class="sovereign-body">
+        <div class="sovereign-col official-col">
+          <div class="sovereign-col-label">Official</div>
+          <div class="sovereign-number">Stable</div>
+          <div class="sovereign-desc">StatsCan reports GDP "growth." Government declares economic management successful.</div>
+        </div>
+        <div class="sovereign-col real-col">
+          <div class="sovereign-col-label">Reality</div>
+          <div class="sovereign-number">$1K Gap</div>
+          <div class="sovereign-desc">Canada is $1,000 USD above Mississippi's GDP/capita. Already below Alabama. 11 years, zero improvement on any major metric.</div>
+        </div>
+      </div>
+    </div>
+    <!-- Ozone -->
+    <div class="sovereign-card">
+      <div class="sovereign-header">🩸 Domain: Medicine — Ozone Therapy</div>
+      <div class="sovereign-body">
+        <div class="sovereign-col official-col">
+          <div class="sovereign-col-label">Official</div>
+          <div class="sovereign-number">"Toxic"</div>
+          <div class="sovereign-desc">FDA: "No known useful medical application." Warning letters issued to manufacturers. Australia shut down clinics.</div>
+        </div>
+        <div class="sovereign-col real-col">
+          <div class="sovereign-col-label">Reality</div>
+          <div class="sovereign-number">60+</div>
+          <div class="sovereign-desc">Countries with regularized ozone therapy. $1.5B session market growing 11%/year. Professional athletes using it openly.</div>
+        </div>
+      </div>
+    </div>
+    <!-- Spike -->
+    <div class="sovereign-card">
+      <div class="sovereign-header">🧬 Domain: Health — Spike Protein</div>
+      <div class="sovereign-body">
+        <div class="sovereign-col official-col">
+          <div class="sovereign-col-label">Official (2021)</div>
+          <div class="sovereign-number">"Myth"</div>
+          <div class="sovereign-desc">Spike protein persistence claims labeled misinformation. No long-term tracking of post-vax symptoms.</div>
+        </div>
+        <div class="sovereign-col real-col">
+          <div class="sovereign-col-label">Reality (2025)</div>
+          <div class="sovereign-number">4 Years</div>
+          <div class="sovereign-desc">Peer-reviewed: spike persists in skull bone marrow up to 4 years. Detectable 700+ days post-vaccination in PVS patients (Yale, 2025).</div>
+        </div>
+      </div>
+    </div>
+    <!-- Media -->
+    <div class="sovereign-card">
+      <div class="sovereign-header">📡 Domain: Media — Who People Trust</div>
+      <div class="sovereign-body">
+        <div class="sovereign-col official-col">
+          <div class="sovereign-col-label">Official</div>
+          <div class="sovereign-number">Declining</div>
+          <div class="sovereign-desc">Legacy media trust at historic lows. Press briefings, public health messaging, institutional endorsements.</div>
+        </div>
+        <div class="sovereign-col real-col">
+          <div class="sovereign-col-label">Reality</div>
+          <div class="sovereign-number">133M/qtr</div>
+          <div class="sovereign-desc">@Tablesalt13 impressions per quarter. @mario4thenorth: 2.5M views on a single post. The alternative IS the mainstream.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SECTION: TIMELINE ========== -->
+<div class="section-divider"></div>
+<div id="timeline-section">
+  <div class="timeline-header reveal">
+    <div class="section-number">07 / 07</div>
+    <div class="section-label">2020 – 2026</div>
+    <h2>The <span class="text-crimson">Timeline</span> — Scroll →</h2>
+    <p style="color: var(--muted); margin-top: 0.75rem; font-size: 0.9rem;">Scroll horizontally through the key events that built the Great Institutional Divorce.</p>
+  </div>
+
+  <div class="timeline-scroll-container reveal reveal-delay-1">
+    <div class="timeline-track">
+      <div class="timeline-line"></div>
+
+      <!-- 2020 -->
+      <div class="timeline-event">
+        <div class="timeline-dot gold"></div>
+        <div class="timeline-date gold">Q1 2020</div>
+        <div class="timeline-tag tag-system">System</div>
+        <div class="timeline-event-title">Pandemic Declared</div>
+        <div class="timeline-event-desc">COVID-19 declared global pandemic. Emergency powers invoked. Vaccine development accelerated under EUA. Economic stimulus masks the coming decline.</div>
+      </div>
+
+      <!-- 2021 -->
+      <div class="timeline-event">
+        <div class="timeline-dot gold"></div>
+        <div class="timeline-date gold">2021</div>
+        <div class="timeline-tag tag-health">Health</div>
+        <div class="timeline-event-title">Mandatory Vaccines + The "Myth" Era</div>
+        <div class="timeline-event-desc">Vaccine mandates roll out. Myocarditis concerns labeled "fringe." Spike protein persistence claims labeled "misinformation." CICP opens to COVID claims.</div>
+      </div>
+
+      <!-- 2022 Fracture -->
+      <div class="timeline-event">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">Feb 2022</div>
+        <div class="timeline-tag tag-money">Money</div>
+        <div class="timeline-event-title">Trucker Convoy — Canada Fractures</div>
+        <div class="timeline-event-desc">Freedom Convoy in Ottawa. First major populist break from the narrative. "Long COVID" and "Post-Vax Syndrome" begin emerging in peer-reviewed literature.</div>
+      </div>
+
+      <!-- 2022 Microclots -->
+      <div class="timeline-event">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">2022–2023</div>
+        <div class="timeline-tag tag-health">Health</div>
+        <div class="timeline-event-title">Microclot Research Goes Peer-Reviewed</div>
+        <div class="timeline-event-desc">Pretorius/Kell fibrinaloid microclot hypothesis published. Ignored by public health agencies. ME/CFS rates begin climbing. Patients start seeking EBOO as unofficial treatment.</div>
+      </div>
+
+      <!-- 2023 Inflation -->
+      <div class="timeline-event">
+        <div class="timeline-dot gold"></div>
+        <div class="timeline-date">2023</div>
+        <div class="timeline-tag tag-money">Money</div>
+        <div class="timeline-event-title">Inflation Peaks. Canada Stagnates.</div>
+        <div class="timeline-event-desc">Canada's GDP per capita begins its slide toward Mississippi levels. Carbon tax controversy escalates. @Tablesalt13 theme forms. Crime severity index misses government target.</div>
+      </div>
+
+      <!-- 2024 Gladstone -->
+      <div class="timeline-event">
+        <div class="timeline-dot ice"></div>
+        <div class="timeline-date">Aug 28, 2024</div>
+        <div class="timeline-tag tag-health">Health</div>
+        <div class="timeline-event-title">Gladstone/UCSF — Fibrin Paper</div>
+        <div class="timeline-event-desc">Nature journal: fibrin is the PRIMARY driver of thromboinflammation in COVID, not a byproduct. New antibody therapy identified. Still no government funding for apheresis trials.</div>
+      </div>
+
+      <!-- 2024 Cell Host -->
+      <div class="timeline-event">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">Dec 2024</div>
+        <div class="timeline-tag tag-health">Health</div>
+        <div class="timeline-event-title">Spike Protein: 4 Years in the Brain</div>
+        <div class="timeline-event-desc">Cell Host & Microbe: spike protein persists in skull bone marrow and meninges for up to 4 years. mRNA vaccines reduce burden 50% but don't eliminate it.</div>
+      </div>
+
+      <!-- 2025 RFK -->
+      <div class="timeline-event">
+        <div class="timeline-dot gold"></div>
+        <div class="timeline-date">Feb 2025</div>
+        <div class="timeline-tag tag-system">System</div>
+        <div class="timeline-event-title">RFK Jr. Confirmed as HHS Secretary</div>
+        <div class="timeline-event-desc">Calls VAERS a system that "doesn't work." Plans new safety monitoring. Removes COVID, flu, hepatitis vaccines from recommended children's schedules. The alternative goes official.</div>
+      </div>
+
+      <!-- 2025 Yale -->
+      <div class="timeline-event">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">Feb 2025</div>
+        <div class="timeline-tag tag-health">Health</div>
+        <div class="timeline-event-title">Yale: Spike 700+ Days Post-Vax</div>
+        <div class="timeline-event-desc">Yale University confirms detectable spike protein in Post-Vaccination Syndrome patients more than 700 days after last vaccination — without active infection.</div>
+      </div>
+
+      <!-- 2025 FDA Myocarditis -->
+      <div class="timeline-event">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">Apr–Jun 2025</div>
+        <div class="timeline-tag tag-health">Health</div>
+        <div class="timeline-event-title">FDA Mandatory Myocarditis Label</div>
+        <div class="timeline-event-desc">FDA sends mandatory safety labeling change to Pfizer and Moderna. New warning covers males 16–25. ~38 cases per million in highest-risk group. "Misinformation" becomes official warning label.</div>
+      </div>
+
+      <!-- 2025 FDA EBOO warning -->
+      <div class="timeline-event">
+        <div class="timeline-dot ice"></div>
+        <div class="timeline-date">Jul 7, 2025</div>
+        <div class="timeline-tag tag-treatment">Treatment</div>
+        <div class="timeline-event-title">FDA Warning Letter — O3UV/EBOO Devices</div>
+        <div class="timeline-event-desc">FDA issues warning to EBOO device manufacturer O3UV LLC (Grand Ledge, MI). Distributed to physicians/nurses across US. The agency doubles down on "no medical use" while clinical trials continue.</div>
+      </div>
+
+      <!-- 2025 Australia -->
+      <div class="timeline-event">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">Jul 31, 2025</div>
+        <div class="timeline-tag tag-treatment">Treatment</div>
+        <div class="timeline-event-title">Australia Shuts Ozone Clinics</div>
+        <div class="timeline-event-desc">NSW Healthcare Complaints Commission closes multiple Sydney ozone clinics. Patient septic shock cases reported. Equipment stored with staff food. Regulatory counter-attack begins.</div>
+      </div>
+
+      <!-- 2025 Mario Viral -->
+      <div class="timeline-event">
+        <div class="timeline-dot gold"></div>
+        <div class="timeline-date">Aug 9, 2025</div>
+        <div class="timeline-tag tag-money">Money</div>
+        <div class="timeline-event-title">Mario Zelaya: 2.5M Views</div>
+        <div class="timeline-event-desc">@mario4thenorth goes viral (2.5M views) over Jeff Evely's $28,000 ticket for walking in a forest. Becomes symbolic of government overreach. 38,000 likes, 7,500 reposts.</div>
+      </div>
+
+      <!-- 2025 VAERS Expand -->
+      <div class="timeline-event">
+        <div class="timeline-dot ice"></div>
+        <div class="timeline-date">May 8, 2025</div>
+        <div class="timeline-tag tag-health">Health</div>
+        <div class="timeline-event-title">VAERS Expanded — Secondary Reports Added</div>
+        <div class="timeline-event-desc">CDC/FDA expand public access to VAERS data to include secondary reports previously excluded. Expanded to WONDER database. Data that was hidden becomes searchable.</div>
+      </div>
+
+      <!-- 2025 Ozone search peak -->
+      <div class="timeline-event">
+        <div class="timeline-dot ice"></div>
+        <div class="timeline-date">Aug 2025</div>
+        <div class="timeline-tag tag-treatment">Treatment</div>
+        <div class="timeline-event-title">Ozone Search Peaks — +66% in 6 Months</div>
+        <div class="timeline-event-desc">"Ozone therapy machine" searches peak at index value 73 in August 2025. Generator search volume rises 141→234 in 6 months. The FDA warning may have accelerated curiosity.</div>
+      </div>
+
+      <!-- 2025 Bryce Harper -->
+      <div class="timeline-event">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">Dec 5-6, 2025</div>
+        <div class="timeline-tag tag-treatment">Treatment</div>
+        <div class="timeline-event-title">Bryce Harper Posts EBOO Session</div>
+        <div class="timeline-event-desc">2x NL MVP, $330M contract. Posts Instagram of EBOO session with Dr. Joshua Redd. Calls results "a great week of wellness." Doctor confirms working with "ton of high-profile professional athletes." NYT/Athletic cover the story.</div>
+      </div>
+
+      <!-- 2026 Tablesalt Mississippi -->
+      <div class="timeline-event">
+        <div class="timeline-dot gold"></div>
+        <div class="timeline-date">Feb 21, 2026</div>
+        <div class="timeline-tag tag-money">Money</div>
+        <div class="timeline-event-title">Table Salt: "$1,000 From Mississippi"</div>
+        <div class="timeline-event-desc">@Tablesalt13 publishes analysis: Canada's GDP per capita is only ~$1,000 USD above Mississippi — the poorest US state. Already confirmed poorer than Alabama. Post spreads across Canadian discourse.</div>
+      </div>
+
+      <!-- 2026 Now -->
+      <div class="timeline-event">
+        <div class="timeline-dot" style="background: var(--gold); box-shadow: 0 0 20px var(--gold);"></div>
+        <div class="timeline-date gold">NOW — 2026</div>
+        <div class="timeline-tag tag-system">Synthesis</div>
+        <div class="timeline-event-title">The Great Institutional Divorce</div>
+        <div class="timeline-event-desc">Populism (RFK Jr. at HHS) meets "Bio-Hacking" health. The alternative IS the mainstream. The underground is going pro. The question is no longer who's right — it's who gets to decide.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<div class="section-divider"></div>
+<footer>
+  <div class="footer-inner">
+    <p class="label">Thesis</p>
+    <p class="footer-thesis">
+      "The institutions built to protect our health, safety, and wealth have become
+      <span class="accent">the primary obstacles to achieving them.</span>
+      In 2026, survival is no longer a public service — it is a private, sovereign DIY project."
+    </p>
+
+    <div class="stats-grid-3 reveal" style="margin: 0;">
+      <div class="stat-card danger" style="text-align: center;">
+        <div class="stat-number crimson" style="font-size: 2rem;">$1K</div>
+        <div class="stat-desc">From Mississippi</div>
+      </div>
+      <div class="stat-card danger" style="text-align: center;">
+        <div class="stat-number crimson" style="font-size: 2rem;">17M</div>
+        <div class="stat-desc">Long COVID sufferers</div>
+      </div>
+      <div class="stat-card danger" style="text-align: center;">
+        <div class="stat-number crimson" style="font-size: 2rem;">0.31%</div>
+        <div class="stat-desc">Claims compensated</div>
+      </div>
+    </div>
+
+    <div class="sources-grid">
+      <div class="source-group">
+        <h4>Health Sources</h4>
+        <ul>
+          <li><a href="https://med.stanford.edu/medicine/news/current-news/standard-news/long-covid-care-2025.html" target="_blank">Stanford Medicine — Long COVID 17M (Sept 2025)</a></li>
+          <li><a href="https://www.hrsa.gov/cicp/cicp-data" target="_blank">HRSA CICP Data — Feb 1, 2026</a></li>
+          <li><a href="https://www.fda.gov/vaccines-blood-biologics/safety-availability-biologics/fda-approves-required-updated-warning-labeling-mrna-covid-19-vaccines-regarding-myocarditis-and" target="_blank">FDA Myocarditis Label Update — June 2025</a></li>
+          <li><a href="https://gladstone.org/news/discovery-how-blood-clots-harm-brain-and-body-covid-19-points-new-therapy" target="_blank">Gladstone/UCSF — Fibrin (Nature, Aug 2024)</a></li>
+          <li><a href="https://news.yale.edu/2025/02/19/immune-markers-post-vaccination-syndrome-indicate-future-research-directions" target="_blank">Yale — Spike 700+ Days (Feb 2025)</a></li>
+          <li><a href="https://recovercovid.org/news/recover-research-update-june-2025" target="_blank">NIH RECOVER — June 2025</a></li>
+        </ul>
+      </div>
+      <div class="source-group">
+        <h4>Canada / Economy Sources</h4>
+        <ul>
+          <li><a href="https://www150.statcan.gc.ca/n1/daily-quotidien/250722/dq250722a-eng.htm" target="_blank">StatsCan — Crime Severity Index 2024</a></li>
+          <li><a href="https://macdonaldlaurier.ca/wp-content/uploads/2025/11/Urban-Violent-Crime-Report_Final.pdf" target="_blank">Macdonald-Laurier — Urban Violent Crime Report (Nov 2025)</a></li>
+          <li><a href="https://x.com/Tablesalt13/status/2025564972382552532" target="_blank">@Tablesalt13 — Mississippi post (Feb 2026)</a></li>
+          <li><a href="https://x.com/mario4thenorth/status/2024443033156976791" target="_blank">@mario4thenorth — 74K views post (Feb 2026)</a></li>
+          <li>Angus Reid — Crime perception poll, Jan 2026</li>
+        </ul>
+      </div>
+      <div class="source-group">
+        <h4>Ozone / Treatment Sources</h4>
+        <ul>
+          <li><a href="https://nytimes.com/athletic/6884480/2025/12/13/bryce-harper-blood-ozone-treatment-phillies/" target="_blank">NYT/The Athletic — Bryce Harper EBOO (Dec 2025)</a></li>
+          <li>FDA 21 CFR 801.415 — Ozone classification</li>
+          <li><a href="https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/warning-letters/o3uv-llc-668840-07072025" target="_blank">FDA Warning Letter O3UV LLC — Jul 7, 2025</a></li>
+          <li>Research & Markets — EBOO Session Market ($1.5B, 11.1% CAGR)</li>
+          <li>Market Research Future — Equipment Market ($6.45B by 2035)</li>
+          <li>Madrid Declaration on Ozone Therapy — ISCO3, 2020</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-credit">
+      <span>Research compiled: Feb 24, 2026 — Bruce Joseph Video Research</span>
+      <span style="color: var(--crimson); font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;">THE GREAT INSTITUTIONAL DIVORCE</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ========== BLOOD LINE SCROLL PROGRESS ==========
+  const bloodLine = document.getElementById('blood-line');
+  function updateBloodLine() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bloodLine.style.height = pct + '%';
+  }
+  window.addEventListener('scroll', updateBloodLine, { passive: true });
+
+  // ========== INTERSECTION OBSERVER (REVEAL) ==========
+  const reveals = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  reveals.forEach(el => revealObserver.observe(el));
+
+  // ========== ANIMATED NUMBER COUNTERS ==========
+  function animateCounter(el) {
+    const decimal = el.dataset.decimal;
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    const scale = parseFloat(el.dataset.scale) || 1;
+
+    if (decimal) {
+      // Fixed decimal display
+      let start = 0;
+      const target = parseFloat(decimal);
+      const duration = 1500;
+      const startTime = performance.now();
+      function step(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = (eased * target).toFixed(2);
+        el.textContent = prefix + current + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = prefix + target.toFixed(2) + suffix;
+      }
+      requestAnimationFrame(step);
+      return;
+    }
+
+    const target = parseInt(el.dataset.target);
+    const displayTarget = target / scale;
+    const duration = 2000;
+    const startTime = performance.now();
+
+    function step(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.floor(eased * displayTarget);
+
+      if (scale >= 1000000) {
+        el.textContent = prefix + (eased * displayTarget).toFixed(0) + suffix;
+      } else {
+        el.textContent = prefix + current.toLocaleString() + suffix;
+      }
+
+      if (progress < 1) requestAnimationFrame(step);
+      else {
+        if (scale >= 1000000) el.textContent = prefix + displayTarget.toFixed(0) + suffix;
+        else el.textContent = prefix + Math.round(displayTarget).toLocaleString() + suffix;
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  const counters = document.querySelectorAll('[data-target]');
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.dataset.animated) {
+        entry.target.dataset.animated = 'true';
+        animateCounter(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(el => counterObserver.observe(el));
+
+  // ========== PROGRESS BARS ==========
+  const progressBars = document.querySelectorAll('.progress-bar[data-width]');
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.dataset.animated) {
+        entry.target.dataset.animated = 'true';
+        const target = entry.target.dataset.width;
+        setTimeout(() => {
+          entry.target.style.width = target + '%';
+        }, 200);
+      }
+    });
+  }, { threshold: 0.5 });
+  progressBars.forEach(el => {
+    el.style.width = '0%';
+    barObserver.observe(el);
+  });
+
+  // ========== HERO INITIAL REVEAL ==========
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      document.querySelectorAll('#hero .reveal').forEach(el => el.classList.add('visible'));
+    }, 300);
+  });
+
+  // ========== SMOOTH HIGHLIGHT ON NAV CLICK ==========
+  document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+
+</body>
+</html>
